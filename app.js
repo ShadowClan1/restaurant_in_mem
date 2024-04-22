@@ -30,24 +30,35 @@ let restauratants =[
 ]
 
 app.post('/add-restaurant',(req,res)=>{
-    let {name, description, image, rating} = req.body;
+    let {name, description, image, avg_rating} = req.body;
 
     restauratants.push({name, avg_rating , description, image, id :restauratants.length+1 })
-    return res.status(200).json({restauratants})
+    return res.status(200).json({data :[...restauratants], success :true})
 })
 
 app.get('/list', (req, res)=>{
-    return res.status(200).json({restauratants})
+    return res.status(200).json({data : [...restauratants], success : true})
 })
 
 
 app.post('/add-rating',(req,res)=>{
-    let {id, rating ,name , description} = req.body;
+    let {id, rating} = req.body;
   let curRes =   restauratants.find((e)=>e.id === id)
   if(!curRes){
     return res.status(400).json({error : "Restaurant not found with this id", success :false})
   }
     curRes.avg_rating = rating
+  return res.status(200).json({data : [...restauratants], success :true})
+})
+app.post('/update-restaurant',(req,res)=>{
+    let {id, avg_rating, name, description} = req.body;
+  let curRes =   restauratants.find((e)=>e.id === id)
+  if(!curRes){
+    return res.status(400).json({error : "Restaurant not found with this id", success :false})
+  }
+    curRes.avg_rating = avg_rating
+    curRes.name = name
+    curRes.description = description
   return res.status(200).json({data : [...restauratants], success :true})
 })
 
