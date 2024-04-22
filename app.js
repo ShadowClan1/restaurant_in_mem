@@ -34,9 +34,9 @@ let restauratants =[
 ]
 
 app.post('/add-restaurant',(req,res)=>{
-    let {name, description, image, avg_rating} = req.body;
+    let {name, description} = req.body;
 
-    restauratants.push({name, avg_rating , description, total_rating :0, rating :0, id :restauratants.length+1 })
+    restauratants.push({name, description, total_rating :0, rating :0, id :restauratants.length+1 })
     return res.status(200).json({data :[...restauratants], success :true})
 })
 
