@@ -55,7 +55,7 @@ app.post('/add-rating',(req,res)=>{
   if(rating > 5 ||rating <0 || Number.isNaN(rating)){
     return res.status(400).json({error : "Rating should be number between 0-5", success :false})
   }
-    curRes.rating = rating
+    curRes.rating += rating
     curRes.total_ratings++;
   return res.status(200).json({data : [...restauratants], success :true})
 })
